@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brickwork Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Brickwork Calculator</h1>
+  <input type="number" id="time" placeholder="Time (seconds)">
+  <input type="number" id="height" placeholder="Height (cm)">
+  <input type="number" id="bricks" placeholder="Number of bricks"><br>
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="output"></div>
+
+  <script>
+    function calculate() {
+      const timeSec = parseFloat(document.getElementById('time').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const bricks = parseInt(document.getElementById('bricks').value);
+
+      if (isNaN(timeSec) || isNaN(height) || isNaN(bricks)) {
+        document.getElementById('output').innerText = "Please enter valid numbers.";
+        return;
+      }
+
+      // Convert time to minutes
+      const timeMin = timeSec / 60;
+
+      // Sample metrics
+      const bricksPerMinute = (bricks / timeSec) * 60;
+      const heightPerBrick = height / bricks;
+
+      // Power calculation
+      const power = 
+        (height * 490 + 37500) +
+        (timeMin * -6000 + 25000) +
+        (bricks * -150 + 30000);
+
+      document.getElementById('output').innerHTML = `
+        🧱 Bricks per minute: ${bricksPerMinute.toFixed(2)}<br>
+        📏 Height per brick: ${heightPerBrick.toFixed(2)} cm<br>
+        ⚡ Power: ${power.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
